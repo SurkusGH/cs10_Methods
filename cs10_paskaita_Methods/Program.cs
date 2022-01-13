@@ -6,7 +6,14 @@ namespace cs10_paskaita_Methods
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("cs10_PASKAITA!");
+            #region TEORIJA - METODAI
+
+            // Modulizacija -
+            // Abstackcijos - abstrahuojami nesvarbūs dalykai ir akcentuojami svarbūs dalykai
+
+            #endregion
+
             //Problem1();
             //Problem2();
             //Problem3();
