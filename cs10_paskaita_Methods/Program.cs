@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace cs10_paskaita_Methods
 {
@@ -9,24 +11,78 @@ namespace cs10_paskaita_Methods
             Console.WriteLine("cs10_PASKAITA!");
             #region TEORIJA - METODAI
 
-            // Modulizacija -
+            // Modulizacija - programos skaldymas į mažesnes dalis
+            // vienu metu gali dirbti keli programuotojai
+            // Lengvesnė klaidų paieška
+            // Kodo recycleing (kodą galima kviesti daug sykių, skirtingose vietose
+            //
             // Abstackcijos - abstrahuojami nesvarbūs dalykai ir akcentuojami svarbūs dalykai
+            // Kas turi įvykti, o ne kaip turi įvykti
+            // Logikos kūrimas nesirūpinant kaip atlikti konkrečią užduotį
+            // Metodai leidžia padaryti įžangą į abstrakciją
+            //
+            // Main metodas yra programos pradžia
+            // Metodai gali turėti lokalius kintamuosius
+            //
+            // Statinis narys tampa klasės dalimi, ne objekto, o klasės
+            // Iš statinės klasės negali kviesti ne statinio medoto
+            // 
+            // Parametrai - reikšmės, kurios perduodamos į metodą (*) metode, kai kvieti argumentai,
+            //                                                    (*) bet aprašomome metode parametrai.
+            // 
+            // Overloading - Galima sukurti perkrautus metodus, kurie turės
+            // tą patį vardą, bet skirtingus parametrus
+            // 
+            // Recursion - ciklas neapsirašant ciklo
+            // Funkcija išsikviečia save iš esmės
+            //
+
+            //Console.WriteLine(Factorial(12)); // <-- Rekursijos pavizdys
+
+            //
+            //
+
 
             #endregion
+
 
             //Problem1();
             //Problem2();
             //Problem3();
+            Problem3("whateva"); // <-- OVERLOAD
+
             //Problem4();
+            Problem4(200, 100); // <-- OVERLOAD
+
             //Problem5();
-            //Problem5();
+            Console.WriteLine(Problem5("vienas du trys")); // <-- OVERLOAD
+
             //Problem6();
+            int[] array = { 1, 2, 3, 4, 5 };
+            Console.WriteLine(Problem6(array)); // <-- OVERLOAD nepralenda tuplas
+
             //Problem7();
-            //Problem8(0, 3, true); // <-- Perkrauta funkcija, int, int; perkrauname su bool
+            Console.WriteLine(Problem7(2, 3)); // <-- OVERLOAD
+
+            //Problem8(0, 3, true); // <-- funkcijai reikia, int, int; overload su bool
+
             //Problem9();
-            Problem10();            // <-- sprendimas kuriuo šaukiamas metodas, kuriuo šaukiamas kitas metodas
+            Problem9("LabaDiena");
+
+            //Problem10();          // <-- sprendimas kuriuo šaukiamas metodas, kuriuo šaukiamas kitas metodas
             //Problem11();
             //Problem12();
+
+        }
+
+        public static int Factorial(int x)
+        {
+            if (x == 0)
+            {
+                return x;
+            }
+
+            return x * Factorial(x - 1);
         }
 
         public static void Problem1()
@@ -68,6 +124,22 @@ namespace cs10_paskaita_Methods
             Console.WriteLine("");
         }
 
+        public static void Problem3(string thing)
+        {
+            // Parašyti funkciją, kuri gauna string tipo parametrą.
+            // Funkcija turi gražinti eilutę su tiek "#",
+            // kiek simbolių yra gautame parametre
+            string someString = thing;
+            Console.WriteLine(someString);
+            someString.ToCharArray();
+
+            foreach (var item in someString)
+            {
+                Console.Write("#");
+            }
+            Console.WriteLine("");
+        }
+
         public static void Problem4()
         {
             // Parašti funkciją, kuri gražina KMI
@@ -78,6 +150,14 @@ namespace cs10_paskaita_Methods
             Console.WriteLine("Įveskite ūgį (cm)");
             bool Height = float.TryParse(Console.ReadLine(), out float theHeight);
             Console.WriteLine($"Jūsų KMI yra: {theWeight / Math.Pow(theHeight / 100, 2)}");
+        }
+
+        public static void Problem4(int height, int weight)
+        {
+            // Parašti funkciją, kuri gražina KMI
+            // Formulė KMI = Masė (Kg)/ūgis(m)²
+
+            Console.WriteLine($"Jūsų KMI yra: {weight / Math.Pow(height / 100, 2)}");
         }
 
         public static void Problem5()
@@ -101,6 +181,26 @@ namespace cs10_paskaita_Methods
             Console.WriteLine($"Sakinyje yra {counter} tarpai.");
         }
 
+        public static int Problem5(string someString)
+        {
+            // Parašyti funkciją, kuri suskaičiuoja ir gražina,
+            // kiek tarpų yra įvestame stringe
+
+            Console.WriteLine(someString);
+            int counter = 0;
+
+            someString.ToCharArray();
+
+            foreach (var item in someString)
+            {
+                if (item == ' ')
+                {
+                    counter++;
+                }
+            }
+            return counter;
+        }
+
         public static void Problem6()
         {
             // Parašyti funkciją, kuri paima int[] parametrą ir išveda elementų
@@ -120,6 +220,26 @@ namespace cs10_paskaita_Methods
                 sumArray += smallArray[i];
             }
             Console.WriteLine($"Masyvo elementų suma: {sumArray}, masyve yra {smallArray.Length} elementų");
+        }
+
+        public static int Problem6(int[] smallArray)
+        {
+            // Parašyti funkciją, kuri paima int[] parametrą ir išveda elementų
+            // sumą, bei kiek elementų yra in array
+
+            int sumArray = 0;
+            for (int i = 0; i < smallArray.Length; i++)
+            {
+                sumArray += smallArray[i];
+            }
+
+            (int, int) tuple = (1, 2);
+            Console.WriteLine(tuple);
+
+            (int, int) tuple2 = (sumArray, smallArray.Length);
+            Console.WriteLine(tuple2);
+
+            return sumArray;
         }
 
         public static void Problem7()
@@ -142,6 +262,15 @@ namespace cs10_paskaita_Methods
             }
 
             Console.WriteLine($"{index1} ^ {index2} = {Math.Pow(index1, index2)}");
+        }
+
+        public static double Problem7(double index1, double index2)
+        {
+            // Parašyt funkciją, kuri kelia
+            // vieną skaičių į antrojo laipsnį
+            // Pvz.: 2 ^ 3 = 8
+
+            return Math.Pow(index1, index2);
         }
 
         public static void Problem8(int firstNum, int secondNum)
@@ -242,7 +371,7 @@ namespace cs10_paskaita_Methods
             char[] tempCharArray = num.ToString().ToCharArray();
 
 
-            List<char> splitNum = new List<char>();
+            List<char> splitNum = new();
             for (int i = 0; i < tempCharArray.Length; i++)
             {
                 splitNum.Add(tempCharArray[i]);
